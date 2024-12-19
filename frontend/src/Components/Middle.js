@@ -1,23 +1,22 @@
 import trump from "../Assets/trump.jpeg";
+import HomeCenterItem from "./homeCenterItem";
+import { useSelector } from "react-redux";
+
 export default function Middle() {
+  const articles = useSelector((state) => state.articles.articles);
+  const firstImageUrl = articles[3]?.image_url;
+  console.log(firstImageUrl);
   return (
     <div className="leftSideBar">
       <div>
-        <img src={trump} alt="trump" />
+        <img src={firstImageUrl} alt="trump" />
         <a href="#">
           <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Trump Wins 2024 Presidential Election
+            {articles[3]?.title}{" "}
           </h2>
         </a>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Donald Trump emerged victorious in the 2024 U.S. presidential
-          election, marking an unprecedented return to the White House after
-          losing in 2020. His win was fueled by a deeply polarized electorate,
-          discontent with the prevailing administration, and strong appeal among
-          working-class voters, particularly in battleground states. Trump’s
-          campaign focused on economic frustrations, immigration issues, and a
-          direct challenge to the justice system, which resonated with his base,
-          despite his ongoing legal battles.
+          {articles[3]?.description}
         </p>
         <a
           href="#"
@@ -41,6 +40,24 @@ export default function Middle() {
             />
           </svg>
         </a>
+      </div>
+      {articles.slice(10, 16).map((article, index) => (
+        <HomeCenterItem key={article.id} article={article} id={index + 10} />
+      ))}
+
+      <div class="mb-6">
+        <label
+          for="default-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          style={{ fontSize: "20px", paddingTop: "20px" }}
+        >
+          What are you searching for today?
+        </label>
+        <input
+          type="text"
+          id="default-input"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "flowbite-react";
-
+import logo from "../Assets/logo.jpg";
+import { Link } from "react-router-dom";
 export default function NavBar() {
   return (
     <div
@@ -10,6 +11,8 @@ export default function NavBar() {
         display: "flex",
         justifyContent: "space-between",
         padding: "5px",
+        backgroundColor: "#C0C0C0",
+        alignItems: "center",
       }}
     >
       <div
@@ -23,7 +26,18 @@ export default function NavBar() {
           alignItems: "center",
         }}
       >
-        <a href="ecdw">Home </a>
+        <Link to={`/`}>
+          <img
+            src={logo}
+            alt="logo"
+            style={{ width: "110px", aspectRatio: "1.5/1" }}
+          />
+        </Link>
+
+        <Link to={`/`}>
+          <p>Home </p>
+        </Link>
+        <Link></Link>
         <a href="ecdw">For You </a>
         <a href="ecdw">Local </a>
       </div>
@@ -34,6 +48,7 @@ export default function NavBar() {
           display: "flex",
           paddingRight: "15px",
           gap: "5px",
+          height: "70%",
         }}
       >
         <input
