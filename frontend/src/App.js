@@ -33,6 +33,10 @@ function App() {
     }
   }, [dispatch, status]);
 
+  if (status !== "succeeded") {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Router>
       <Routes>
