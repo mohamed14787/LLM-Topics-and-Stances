@@ -1,6 +1,14 @@
 import { Button } from "flowbite-react";
+import { Link } from "react-router-dom";
+export default function ArticleItem({ article }) {
+  console.log(article.id);
+  function daysSincePublished(dateString) {
+    const publishedDate = new Date(dateString);
+    const now = new Date();
+    const msDiff = now - publishedDate;
+    return `${Math.floor(msDiff / (1000 * 60 * 60 * 24))} days ago`;
+  }
 
-export default function ArticleItem({ title }) {
   return (
     <div>
       <div
@@ -32,35 +40,23 @@ export default function ArticleItem({ title }) {
             alignContent: "center",
           }}
         >
-          {title}
+          {article.domain}
         </a>
-        <Button variant="contained" style={{ backgroundColor: "#333" }}>
-          <a
-            href="https://www.cnn.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <Link to={`/article/${article.index}`}>
+          <Button variant="contained" style={{ backgroundColor: "#333" }}>
             Go to the Article
-          </a>
-        </Button>
+          </Button>
+        </Link>
       </div>
 
       <div style={{ textAlign: "left" }}>
-        <p style={{ fontSize: "25px", padding: "10px" }}>
-          Bashar al-Assad: The Syrian President's first visit to the UAE in over
-          a decade
-        </p>
-
+        <p style={{ fontSize: "25px", padding: "10px" }}>{article.title}</p>
         <p style={{ fontSize: "15px", padding: "10px" }}>
-          Bashar al-Assad, the Syrian President, visited the United Arab
-          Emirates on Friday, marking his first visit to the country in over a
-          decade. The visit comes as the UAE seeks to improve its relations with
-          the Syrian government, which has been isolated by much of the
-          international community due to its brutal crackdown on pro-democracy
-          protests that began in 2011.
+          {article.description}
         </p>
-
-        <p style={{ fontSize: "13px", padding: "10px" }}>5 days ago</p>
+        <p style={{ fontSize: "13px", padding: "10px" }}>
+          {daysSincePublished(article.publishedAt)}
+        </p>
       </div>
     </div>
   );

@@ -1,12 +1,15 @@
 import ArticleItem from "./ArticleItem"; // Ensure that ArticleItem is correctly defined in the same directory
 
-export default function DetailsArticleList() {
+export default function DetailsArticleList({ articles }) {
   return (
     <div>
-      <h1>Details Article List</h1>
+      {/* <h1>Details Article List</h1> */}
 
-      <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-        <ul
+      <div
+        class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
+        style={{ padding: "20px" }}
+      >
+        {/* <ul
           class="flex flex-wrap -mb-px"
           style={{ gap: "70px", fontSize: "23px" }}
         >
@@ -40,9 +43,11 @@ export default function DetailsArticleList() {
               Negative
             </a>
           </li>
-        </ul>
+        </ul> */}
 
-        <ArticleItem title="CNN" />
+        {articles.slice(0, 5).map((article) => (
+          <ArticleItem article={article} />
+        ))}
       </div>
     </div>
   );

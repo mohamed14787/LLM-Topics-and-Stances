@@ -1,8 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+
+const flowbite = require("flowbite-react/tailwind");
+
 module.exports = {
-  content: ["./node_modules/flowbite/**/*.js"],
-  theme: {
-    extend: {},
+  content: [
+    // ...
+    flowbite.content(),
+  ],
+  corePlugins: {
+    outline: false, // Disable outline globally
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [
+    // ...
+    flowbite.plugin(),
+  ],
 };

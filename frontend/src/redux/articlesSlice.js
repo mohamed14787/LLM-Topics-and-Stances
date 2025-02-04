@@ -5,10 +5,12 @@ import React, { useEffect, useState } from "react";
 export const fetchArticles = createAsyncThunk(
   "articles/fetchArticles",
   async () => {
-    const response = await fetch("/data.json");
-    console.log("here we go");
+    const response = await fetch("/clusters.json");
     const data = await response.json();
-    return data; // Return the fetched articles
+    // Assuming data is a dictionary of arrays, flatten if needed:
+    const mergedArticles = Object.values(data).flat();
+    console.log(data);
+    return data;
   }
 );
 
@@ -19,7 +21,7 @@ const articlesSlice = createSlice({
     status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
-  reducers: {}, // No manual reducers here, as we're fetching data asynchronously
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchArticles.pending, (state) => {
@@ -27,7 +29,8 @@ const articlesSlice = createSlice({
       })
       .addCase(fetchArticles.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.articles = action.payload; // Set the fetched articles
+        // Adapt for dictionary of arrays: flatten the arrays into one array
+        state.articles = action.payload;
       })
       .addCase(fetchArticles.rejected, (state, action) => {
         state.status = "failed";

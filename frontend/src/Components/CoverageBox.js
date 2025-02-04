@@ -2,7 +2,7 @@ export default function CoverageBox() {
   return (
     <div
       style={{
-        backgroundColor: "darkgrey",
+        backgroundColor: "#d1d5db",
         paddingTop: "25px",
         paddingBottom: "25px",
       }}

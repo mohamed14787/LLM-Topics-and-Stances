@@ -2,99 +2,138 @@ import trump from "../Assets/trump.jpeg";
 import HomeCenterItem from "./homeCenterItem";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { Label, Textarea } from "flowbite-react";
 
-export default function Middle() {
-  const articles = useSelector((state) => state.articles.articles);
-  const firstImageUrl = articles[3]?.image_url;
+export default function Middle({ target }) {
+  const articles = target;
+  const firstImageUrl = articles[1]?.image_url;
   const [inputValue, setInputValue] = useState("");
   const [fetched, setFetched] = useState("");
+  const percentage = 66;
+
+  const config = {
+    percent: 55,
+    colorSlice: "#E91E63",
+    colorCircle: "#f1f1f1",
+    fontWeight: 100,
+    number: false, // turn off the percentage animation first
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    console.log("Sending:", JSON.stringify({ query: inputValue }));
+
+    fetch("http://localhost:8000/vote2", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }, // Fixed Content-Type
+      body: JSON.stringify({ query: inputValue }), // Correct JSON format
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); // Convert response to JSON
+      })
+      .then((data) => {
+        console.log("Response received:", data);
+        setFetched(data); // Update state with the response
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   console.log(firstImageUrl);
   return (
-    <div className="leftSideBar">
-      <div>
-        <img src={firstImageUrl} alt="trump" />
-        <a href="#">
-          <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {articles[3]?.title}{" "}
-          </h2>
-        </a>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          {articles[3]?.description}
-        </p>
-        <a
-          href="#"
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          style={{ backgroundColor: "#222" }}
-        >
-          Read more
-          <svg
-            className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
+    <div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "30px" }}>
+        <div>
+          <img
+            src={firstImageUrl}
+            style={{ marginBottom: "40px" }}
+            alt="trump"
+          />
+          <Link to={`/article/${articles[1].index}`}>
+            <h2
+              className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              style={{ fontSize: "35px", lineHeight: "1.3" }}
+            >
+              {articles[1]?.title}{" "}
+            </h2>
+          </Link>
+          <p
+            className="mb-3 font-normal text-gray-700 dark:text-gray-400"
+            style={{ fontSize: "22px" }}
           >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
+            {articles[1]?.description}
+          </p>
+          <Link to={`/article/${articles[1].index}`}>
+            <button
+              type="submit"
+              className="text-white  end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 
+                    focus:ring-4 focus:outline-none focus:ring-blue-300 
+                    font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 
+                    dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              style={{
+                backgroundColor: "#222",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              Read more
+              <svg
+                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </button>
+          </Link>
+        </div>
+        <div style={{ width: "80%" }}>
+          <div className="mb-2 block">
+            <Label
+              htmlFor="large"
+              value="What Party are you preferably vote for ?"
             />
-          </svg>
-        </a>
-        <button
-          onClick={() => {
-            console.log("Button clicked");
-          }}
-          className="mt-4 px-4 py-2 bg-green-500 text-white rounded"
-        >
-          Click Me
-        </button>
-      </div>
-      {articles.slice(10, 16).map((article, index) => (
-        <HomeCenterItem key={article.id} article={article} id={index + 10} />
-      ))}
+          </div>
+          <Textarea
+            id="comment"
+            placeholder="I am AI Assistant to help you you  decide on what party to vote for"
+            required
+            rows={4}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="text-white  end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 
+                    focus:ring-4 focus:outline-none focus:ring-blue-300 
+                    font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 
+                    dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            style={{ backgroundColor: "#222" }}
+            onClick={handleSubmit}
+          >
+            Try Me
+          </button>
+        </div>
+        <p>{fetched}</p>
 
-      <div className="mb-6">
-        <label
-          htmlFor="default-input"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          style={{ fontSize: "20px", paddingTop: "20px" }}
-        >
-          What are you searching for today?
-        </label>
-        <input
-          type="text"
-          id="default-input"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            fetch("http://localhost:8000/query-pinecone-v2", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ texts: [inputValue] }),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                // Handle the response data
-                console.log("fetched");
-                console.log(data);
-                setFetched(data);
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-              });
-          }}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Search
-        </button>
-        <HomeCenterItem article={fetched[0]} id={0} />
-        <HomeCenterItem article={fetched[1]} id={1} />
+        {/* {articles.slice(10, 12).map((article, index) => (
+          <HomeCenterItem key={article.id} article={article} id={index + 10} />
+        ))} */}
       </div>
     </div>
   );

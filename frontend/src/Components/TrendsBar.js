@@ -1,5 +1,8 @@
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function TrendsBar() {
   return (
@@ -8,10 +11,12 @@ export default function TrendsBar() {
       style={{
         display: "flex",
 
-        padding: "10px",
+        padding: "5px",
         gap: "10px",
         borderTop: "1px solid #555",
-        borderBottom: "1px solid #000",
+        borderBottom: "2px solid #000",
+        marginLeft: "25px",
+        marginRight: "25px",
       }}
     >
       <div style={{ padding: "4px" }}>
@@ -20,8 +25,8 @@ export default function TrendsBar() {
 
       <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
         <li class="me-2">
-          <a
-            href="#"
+          <Link
+            to={`/Trends/elections`}
             class="inline-block   rounded-lg active"
             aria-current="page"
             style={{
@@ -35,12 +40,12 @@ export default function TrendsBar() {
               alignContent: "center",
             }}
           >
-            Trump +
-          </a>
+            Elections +
+          </Link>
         </li>{" "}
         <li class="me-2">
-          <a
-            href="#"
+          <Link
+            to={`/Trends/parliament`}
             class="inline-block   rounded-lg active"
             aria-current="page"
             style={{
@@ -54,12 +59,12 @@ export default function TrendsBar() {
               alignContent: "center",
             }}
           >
-            Barcelona VS Bayern Munich +
-          </a>
+            Parliament +
+          </Link>
         </li>{" "}
         <li class="me-2">
-          <a
-            href="#"
+          <Link
+            to={`/Trends/Scholz`}
             class="inline-block   rounded-lg active"
             aria-current="page"
             style={{
@@ -73,12 +78,12 @@ export default function TrendsBar() {
               alignContent: "center",
             }}
           >
-            SISI The dictator +
-          </a>
+            Olaf Scholz +
+          </Link>
         </li>{" "}
         <li class="me-2">
-          <a
-            href="#"
+          <Link
+            to={`/Trends/Alice`}
             class="inline-block   rounded-lg active"
             aria-current="page"
             style={{
@@ -92,12 +97,12 @@ export default function TrendsBar() {
               alignContent: "center",
             }}
           >
-            Black Friday +
-          </a>
+            Alice Weidel +
+          </Link>
         </li>{" "}
         <li class="me-2">
-          <a
-            href="#"
+          <Link
+            to={`/Trends/Immigration`}
             class="inline-block   rounded-lg active"
             aria-current="page"
             style={{
@@ -111,65 +116,8 @@ export default function TrendsBar() {
               alignContent: "center",
             }}
           >
-            German Polls +
-          </a>
-        </li>{" "}
-        <li class="me-2">
-          <a
-            href="#"
-            class="inline-block   rounded-lg active"
-            aria-current="page"
-            style={{
-              width: "auto" /* Adjust the width */,
-              height: "30px",
-              backgroundColor: "#d1d5db",
-              borderRadius: "20px / 50%",
-              padding: "5px",
-              fontSize: "14px",
-              color: "#000",
-              alignContent: "center",
-            }}
-          >
-            World War 3 +
-          </a>
-        </li>{" "}
-        <li class="me-2">
-          <a
-            href="#"
-            class="inline-block   rounded-lg active"
-            aria-current="page"
-            style={{
-              width: "auto" /* Adjust the width */,
-              height: "30px",
-              backgroundColor: "#d1d5db",
-              borderRadius: "20px / 50%",
-              padding: "5px",
-              fontSize: "14px",
-              color: "#000",
-              alignContent: "center",
-            }}
-          >
-            Mike Tyson VS Jake Paul +
-          </a>
-        </li>{" "}
-        <li class="me-2">
-          <a
-            href="#"
-            class="inline-block   rounded-lg active"
-            aria-current="page"
-            style={{
-              width: "auto" /* Adjust the width */,
-              height: "30px",
-              backgroundColor: "#d1d5db",
-              borderRadius: "20px / 50%",
-              padding: "5px",
-              fontSize: "14px",
-              color: "#000",
-              alignContent: "center",
-            }}
-          >
-            The Queen of England +
-          </a>
+            Immigration +
+          </Link>
         </li>{" "}
       </ul>
     </div>
