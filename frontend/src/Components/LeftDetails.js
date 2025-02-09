@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Trump from "../Assets/trump.jpeg";
 import DetailsArticleList from "./DetailsArticleList";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
@@ -12,10 +12,13 @@ export default function LeftDetails({ article, all }) {
     setToggleSummary(x);
   };
 
+  useEffect(() => {
+    setLike(false);
+  }, [article]);
   const toggleLike = () => {
     setLike(!like);
     console.log("like", like);
-    fetch("http://localhost:8000/like", {
+    fetch(`http://localhost:8000/like?postId=${article.id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ postId: article.id }),
@@ -106,7 +109,7 @@ export default function LeftDetails({ article, all }) {
       >
         <Button
           style={{
-            color: like ? "black" : "blue",
+            color: like ? "blue" : "black",
           }}
           onClick={toggleLike}
         >

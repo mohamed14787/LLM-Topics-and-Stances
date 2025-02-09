@@ -54,7 +54,7 @@ export default function HomePage() {
   }
   console.log("lol", articlesByDay);
   const [selectedDay, setSelectedDay] = useState(
-    new Date(articles[0].publishedAt).toLocaleDateString("en-US")
+    new Date(articles[300].publishedAt).toLocaleDateString("en-US")
   );
   const days = Object.keys(articlesByDay).filter(
     (day) => articlesByDay[day].length >= 2

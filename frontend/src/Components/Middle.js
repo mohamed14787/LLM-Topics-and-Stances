@@ -30,7 +30,8 @@ export default function Middle({ target }) {
     fetch("http://localhost:8000/vote2", {
       method: "POST",
       headers: { "Content-Type": "application/json" }, // Fixed Content-Type
-      body: JSON.stringify({ query: inputValue }), // Correct JSON format
+      body: JSON.stringify({ query: inputValue }),
+      // mode: "cors", // Correct JSON format
     })
       .then((response) => {
         if (!response.ok) {

@@ -1,11 +1,29 @@
 import HomeCenterItem from "./homeCenterItem";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Search() {
-  const articles = useSelector((state) => state.articles.articles);
+  function flattenDictionaryToArray(obj) {
+    let result = [];
+    for (let key in obj) {
+      if (typeof obj[key] === "object") {
+        result = result.concat(obj[key]);
+      } else {
+        result.push(obj[key]);
+      }
+    }
+    return result;
+  }
+  const articles1 = useSelector((state) => state.articles.articles || []);
+  const articlesWithOutIndex = flattenDictionaryToArray(articles1);
+  const articles = articlesWithOutIndex.map((article, index) => ({
+    ...article,
+    index,
+  }));
   const [inputValue, setInputValue] = useState("");
   const [fetched, setFetched] = useState([]);
+  const [merged, setMerged] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +40,15 @@ export default function Search() {
         console.error("Error:", error);
       });
   };
+  useEffect(() => {
+    if (fetched.length) {
+      setMerged(
+        articles.filter((article) =>
+          fetched.some((f) => f.title === article.title)
+        )
+      );
+    }
+  }, [fetched]);
 
   return (
     <form
@@ -60,8 +87,8 @@ export default function Search() {
         </button>
       </div>
 
-      <HomeCenterItem article={fetched[0]} id={0} />
-      <HomeCenterItem article={fetched[1]} id={1} />
+      <HomeCenterItem article={merged[0]} id={0} />
+      <HomeCenterItem article={merged[1]} id={1} />
     </form>
   );
 }
