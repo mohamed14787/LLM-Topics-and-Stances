@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "name": "LLM-Topics-and-Stances",
+      "path": "../../../Nlp github/LLM-Topics-and-Stances"
+    },
+    {
+      "name": "FrontEnd",
+      "path": "."
+    },
+    {
+      "name": "api",
+      "path": "../api"
+    },
+    {
+      "name": "data-collection",
+      "path": "../data-collection"
+    }
+  ],
+  "settings": {}
+}

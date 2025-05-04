@@ -1,0 +1,19 @@
+.LikeButton {
+  margin-left: 7%;
+  background-color: white;
+  width: 10%;
+  justify-content: center;
+  gap: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.inline-block.rounded-lg.active {
+  /* Base styles from the class; width and height can be overridden via inline style */
+  background-color: #d1d5db;
+  border-radius: 20px / 50%;
+  padding: 5px;
+  font-size: 14px;
+  color: #000;
+  align-content: center;
+}
